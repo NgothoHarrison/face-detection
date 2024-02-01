@@ -1,7 +1,7 @@
 import cv2 as cv
 import numpy as np
 
-img = cv.imread('images/group.jpg')
+img = cv.imread('images/group.jpg') 
 # cv.imshow('Iron Man', img) 
 
 # convert to grayscale
