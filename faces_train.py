@@ -38,6 +38,8 @@ def train():
 
 train()
 
-print(f'length of the features = {(len(features))}')
-print(f'length of the labels = {(len(labels))}')
+# print(f'length of the features = {(len(features))}')
+# print(f'length of the labels = {(len(labels))}')
+
+print("+++++++++++++++++Training Done ++++++++++++++++++++++++")
 
