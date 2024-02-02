@@ -36,7 +36,9 @@ def train():
                 features.append(faces_roi)
                 labels.append(label)
 
+train()
 
+print
 
 
 
