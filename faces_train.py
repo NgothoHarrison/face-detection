@@ -6,6 +6,8 @@ import numpy as np
 # people = ['Ben Afflek', 'Elton John', 'Jerry Seinfield', 'Madonna', 'Mindy Kaling']
 DIR = r'C:\Users/Administrator/Desktop/100dayscode/face detection/images/Faces/train'
 
+haar_cascade = cv.CascadeClassifier('haar_face.xml')
+
 people = []
 for i in os.listdir(r'C:\Users\Administrator\Desktop\100dayscode\face detection\images\Faces\train'):
     people.append(i)
@@ -27,7 +29,12 @@ def train():
             img_array = cv.imread(img_path)
             gray = cv.cvtColor(img_array, cv.COLOR_BG2BGR)
 
+            faces_rect = haar_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=4)
+
             
+
+
+
 
 
 
