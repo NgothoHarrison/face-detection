@@ -3,14 +3,14 @@ import cv2 as cv
 import numpy as np
 
 # People's names
-# people = ['Ben Afflek', 'Elton John', 'Jerry Seinfield', 'Madonna', 'Mindy Kaling']
+people = ['Ben Afflek', 'Elton John', 'Jerry Seinfield', 'Madonna', 'Mindy Kaling']
 DIR = r'C:\Users/Administrator/Desktop/100dayscode/face detection/images/Faces/train'
+# people = []
+# for i in os.listdir(r'C:\Users\Administrator\Desktop\100dayscode\face detection\images\Faces\train'):
+#     people.append(i)
 
+# haar_cascade = cv.CascadeClassifier('haar_face.xml')
 haar_cascade = cv.CascadeClassifier('haar_face.xml')
-
-people = []
-for i in os.listdir(r'C:\Users\Administrator\Desktop\100dayscode\face detection\images\Faces\train'):
-    people.append(i)
 
 print(people)
 
@@ -18,7 +18,7 @@ print(people)
 features = []
 labels = []
 
-def train():
+def create_train():
     for person in people:
         path = os.path.join(DIR, person)
         label = people.index(person)
@@ -29,14 +29,16 @@ def train():
             img_array = cv.imread(img_path)
             gray = cv.cvtColor(img_array, cv.COLOR_BGR2GRAY)
 
+            # Detect the face in the image
             faces_rect = haar_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=4)
+
 
             for (x,y,w,h) in faces_rect:
                 faces_roi = gray [y:y+h, x:x+w]
                 features.append(faces_roi)
                 labels.append(label)
 
-train()
+create_train()
 
 # print(f'length of the features = {(len(features))}')
 # print(f'length of the labels = {(len(labels))}')
@@ -48,7 +50,11 @@ labels = np.array(labels)
 
 face_recognizer = cv.face.LBPHFaceRecognizer_create() 
 
-# Train the recognizer on features lists and labels lists
-face_recognizer.save = ('face_trained.yml') # save the trained model
+# Train the recognizer on features lists and labels lists 
+face_recognizer.train(features, labels)
+
+
 np.save('features.npy', features)
 np.save('labels.npy', labels)
+
+face_recognizer.save('face_trained.yml') # save the trained model
